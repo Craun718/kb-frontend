@@ -4,9 +4,7 @@ import { useId, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
-import {
-  searchRelationshipRelationPost,
-} from '@/client';
+import { searchRelationshipRelationPost } from '@/client';
 import type { RelationResult } from '@/client/types.gen';
 import { exportRelationsAsJson } from '@/lib/export';
 import { resultsListAtom } from '@/store/resultsList';
@@ -47,7 +45,10 @@ export function RelationSingleSearchForm() {
 
   const onSubmit = async (data: z.infer<typeof singleSearchForm>) => {
     const query = (data.query || '').replace(/，/g, ',');
-    const terms = query.split(',').map((term) => (term || '').trim()).filter(Boolean);
+    const terms = query
+      .split(',')
+      .map((term) => (term || '').trim())
+      .filter(Boolean);
 
     if (terms.length < 2) {
       toast.error('请输入至少两个有效术语并用逗号分隔');
@@ -340,7 +341,7 @@ export function RelationSingleSearchForm() {
         <Label>批量查询关系</Label>
         <Input type="file" accept=".json" onChange={selectFile} />
 
-        <div className="mb-10 flex justify-end mt-2 mr-2">
+        <div className="flex justify-end mt-2 mr-2">
           <Button
             type="button"
             disabled={isLoading}
@@ -350,18 +351,20 @@ export function RelationSingleSearchForm() {
             查询
           </Button>
         </div>
-
       </div>
-      {isLoading && (<>
-        <Separator />
-        <div className="flex flex-col gap-2">
-          <div className="flex justify-between text-sm text-gray-600">
-            <span>查询进度</span>
-            <span>{completedRequests}/{totalRequests}</span>
+      {isLoading && (
+        <>
+          <Separator />
+          <div className="flex flex-col gap-2">
+            <div className="flex justify-between text-sm text-gray-600">
+              <span>查询进度</span>
+              <span>
+                {completedRequests}/{totalRequests}
+              </span>
+            </div>
+            <Progress value={progress} />
           </div>
-          <Progress value={progress} />
-        </div>
-      </>
+        </>
       )}
     </div>
   );

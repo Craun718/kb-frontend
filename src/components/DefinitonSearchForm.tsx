@@ -4,9 +4,7 @@ import { useId, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
-import {
-  searchDefinitionDefinitionPost,
-} from '@/client';
+import { searchDefinitionDefinitionPost } from '@/client';
 import type { DefinitionResult } from '@/client/types.gen';
 import { exportDefinitionsAsJson } from '@/lib/export';
 import { resultsListAtom } from '@/store/resultsList';
@@ -261,16 +259,7 @@ export function DefinitionSingleSearchForm() {
       <div className="flex flex-col gap-3 mt-3">
         <Label>批量查询定义</Label>
         <Input type="file" accept=".json" onChange={selectFile} />
-        {isLoading && (
-          <div className="flex flex-col gap-2">
-            <div className="flex justify-between text-sm text-gray-600">
-              <span>查询进度</span>
-              <span>{completedRequests}/{totalRequests}</span>
-            </div>
-            <Progress value={progress} />
-          </div>
-        )}
-        <div className="mb-10 flex justify-end mt-2 mr-2">
+        <div className="flex justify-end mt-2 mr-2">
           <Button
             type="button"
             disabled={isLoading}
@@ -280,6 +269,17 @@ export function DefinitionSingleSearchForm() {
             查询
           </Button>
         </div>
+        {isLoading && (
+          <div className="flex flex-col gap-2">
+            <div className="flex justify-between text-sm text-gray-600">
+              <span>查询进度</span>
+              <span>
+                {completedRequests}/{totalRequests}
+              </span>
+            </div>
+            <Progress value={progress} />
+          </div>
+        )}
       </div>
     </div>
   );
