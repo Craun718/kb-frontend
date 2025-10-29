@@ -27,7 +27,7 @@ export const exportDefinitionsAsJson = (definitions: DefinitionResponse) => {
       术语名称: item.term,
       术语定义: item.definition,
       文档出处: item.documents,
-      文档页数: `第 ${item.page} 页`,
+      文档页数: `第${item.page}页`,
     };
   });
 
@@ -87,7 +87,7 @@ export const exportRelationsAsJson = (relations: RelationResponse) => {
       关联描述: [
         {
           文档出处: item.documents,
-          文档页数: `第 ${item.page} 页`,
+          文档页数: `第${item.page}页`,
         },
       ],
     };
