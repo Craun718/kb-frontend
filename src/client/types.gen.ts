@@ -29,6 +29,18 @@ export type BodySearchDefinitionDefinitionPost = {
 };
 
 /**
+ * Body_search_relationship_relation_batch_post
+ */
+export type BodySearchRelationshipRelationBatchPost = {
+    /**
+     * Query
+     *
+     * 搜索关键词
+     */
+    query: string;
+};
+
+/**
  * Body_search_relationship_relation_post
  */
 export type BodySearchRelationshipRelationPost = {
@@ -306,6 +318,31 @@ export type SearchDefinitionBatchDefinitionBatchPostResponses = {
 };
 
 export type SearchDefinitionBatchDefinitionBatchPostResponse = SearchDefinitionBatchDefinitionBatchPostResponses[keyof SearchDefinitionBatchDefinitionBatchPostResponses];
+
+export type SearchRelationshipRelationBatchPostData = {
+    body: BodySearchRelationshipRelationBatchPost;
+    path?: never;
+    query?: never;
+    url: '/relation/batch';
+};
+
+export type SearchRelationshipRelationBatchPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type SearchRelationshipRelationBatchPostError = SearchRelationshipRelationBatchPostErrors[keyof SearchRelationshipRelationBatchPostErrors];
+
+export type SearchRelationshipRelationBatchPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: RelationResponse;
+};
+
+export type SearchRelationshipRelationBatchPostResponse = SearchRelationshipRelationBatchPostResponses[keyof SearchRelationshipRelationBatchPostResponses];
 
 export type SearchRelationshipRelationPostData = {
     body: BodySearchRelationshipRelationPost;
