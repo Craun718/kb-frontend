@@ -36,7 +36,7 @@ export function RelationSingleSearchForm() {
 
   const onSubmit = (data: z.infer<typeof singleSearchForm>) => {
     const query = (data.query || '').replace(/，/g, ',');
-    const terms = query.split(',').map(term => (term || '').trim());
+    const terms = query.split(',').map((term) => (term || '').trim());
 
     if (terms.filter(Boolean).length < 2) {
       toast.error('请输入至少两个有效术语并用逗号分隔');
@@ -65,16 +65,22 @@ export function RelationSingleSearchForm() {
           return;
         }
 
+        const preprocessedResults = result.filter(
+          (item) =>
+            item.term1 &&
+            item.term2 &&
+            item.relation &&
+            item.reason &&
+            item.documents &&
+            item.page,
+        );
 
-        const preprocessedResults = result.filter(item => item.term1 && item.term2 && item.relation && item.reason && item.documents && item.page);
-
-        const formattedResults = preprocessedResults.map((item) => (
-          {
-            title: `${item.term1} 与 ${item.term2} 为 ${item.relation}` || '',
-            description: item.reason || '',
-            document: item.documents || '',
-            page: item.page || 0,
-          }));
+        const formattedResults = preprocessedResults.map((item) => ({
+          title: `${item.term1} 与 ${item.term2} 为 ${item.relation}` || '',
+          description: item.reason || '',
+          document: item.documents || '',
+          page: item.page || 0,
+        }));
 
         if (!formattedResults.length) {
           toast.error('未找到相关定义');
@@ -117,7 +123,9 @@ export function RelationSingleSearchForm() {
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="form-rhf-demo-title">术语（用逗号分隔）</FieldLabel>
+              <FieldLabel htmlFor="form-rhf-demo-title">
+                术语（用逗号分隔）
+              </FieldLabel>
               <Input
                 {...field}
                 id={id}

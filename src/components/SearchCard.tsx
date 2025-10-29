@@ -1,9 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import { useState } from 'react';
 import { DefinitionSingleSearchForm } from './DefinitonSingleSearchForm';
+import { RelationSingleSearchForm } from './RelationSingleSearchForm';
 import { Card, CardContent, CardHeader } from './ui/card';
 import { Switch } from './ui/switch';
-import { RelationSingleSearchForm } from './RelationSingleSearchForm';
 
 export function SearchCard() {
   const [isRelation, setIsRelation] = useState(false);
@@ -22,7 +22,10 @@ export function SearchCard() {
           <TabsList>
             <div className="flex gap-3">
               <TabsTrigger value="definition">查询定义</TabsTrigger>
-              <Switch checked={isRelation} onCheckedChange={() => setIsRelation(!isRelation)} />
+              <Switch
+                checked={isRelation}
+                onCheckedChange={() => setIsRelation(!isRelation)}
+              />
               <TabsTrigger value="relation">查询关系</TabsTrigger>
             </div>
           </TabsList>

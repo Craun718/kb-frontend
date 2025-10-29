@@ -78,10 +78,9 @@ export function DefinitionSingleSearchForm() {
       });
   };
 
-  const id = useId()
+  const id = useId();
   return (
-    <form id={id}
-      onSubmit={form.handleSubmit(onSubmit)}>
+    <form id={id} onSubmit={form.handleSubmit(onSubmit)}>
       <FieldGroup>
         <Controller
           name="search_type"
