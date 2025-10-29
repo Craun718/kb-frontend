@@ -9,7 +9,6 @@
     "noEmit": true,
     "skipLibCheck": true,
     "useDefineForClassFields": true,
-    /* modules */
     "module": "ESNext",
     "moduleDetection": "force",
     "moduleResolution": "bundler",
@@ -17,13 +16,12 @@
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
     "noUncheckedSideEffectImports": true,
-    /* type checking */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
       "@/*": [
-        "./*"
+        "./src/*"
       ]
     }
   },
