@@ -124,7 +124,7 @@ export function RelationSingleSearchForm() {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel htmlFor="form-rhf-demo-title">
-                术语（用逗号分隔）
+                术语关系查询（用逗号分隔）
               </FieldLabel>
               <Input
                 {...field}
@@ -138,8 +138,8 @@ export function RelationSingleSearchForm() {
           )}
         />
       </FieldGroup>
-      <div className="mt-5">
-        <Button type="submit" size="lg">
+      <div className="mt-5 mb-15">
+        <Button type="submit" className="absolute right-20">
           {isLoading && <Spinner />}
           查询
         </Button>

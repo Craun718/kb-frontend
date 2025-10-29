@@ -131,7 +131,7 @@ export type RelationResult = {
     /**
      * Relation
      */
-    relation: number;
+    relation: string;
     /**
      * Reason
      */
@@ -302,8 +302,10 @@ export type SearchDefinitionBatchDefinitionBatchPostResponses = {
     /**
      * Successful Response
      */
-    200: unknown;
+    200: DefinitionResponse;
 };
+
+export type SearchDefinitionBatchDefinitionBatchPostResponse = SearchDefinitionBatchDefinitionBatchPostResponses[keyof SearchDefinitionBatchDefinitionBatchPostResponses];
 
 export type SearchRelationshipRelationPostData = {
     body: BodySearchRelationshipRelationPost;
