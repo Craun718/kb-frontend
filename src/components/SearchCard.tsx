@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import { useState } from 'react';
-import { DefinitionSingleSearchForm } from './DefinitonSingleSearchForm';
-import { RelationSingleSearchForm } from './RelationSingleSearchForm';
+import { DefinitionSingleSearchForm } from './DefinitonSearchForm';
+import { RelationSingleSearchForm } from './RelationSearchForm';
 import { Card, CardContent, CardHeader } from './ui/card';
 import { Switch } from './ui/switch';
 
