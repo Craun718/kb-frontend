@@ -35,7 +35,7 @@ export function RelationSingleSearchForm() {
   });
 
   const onSubmit = (data: z.infer<typeof singleSearchForm>) => {
-    const query = (data.query || '').replace("，", ",");
+    const query = (data.query || '').replace(/，/g, ',');
     const terms = query.split(',').map(term => (term || '').trim());
 
     if (terms.filter(Boolean).length < 2) {
