@@ -4,7 +4,7 @@ import { HomePage } from './pages';
 
 const App = () => {
   return (
-    <div className="content">
+    <div className="content px-10">
       <HomePage />
     </div>
   );
