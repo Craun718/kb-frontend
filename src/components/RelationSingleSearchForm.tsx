@@ -131,7 +131,7 @@ export function RelationSingleSearchForm() {
         />
       </FieldGroup>
       <div className="mt-5">
-        <Button type="submit">
+        <Button type="submit" size="lg">
           {isLoading && <Spinner />}
           查询
         </Button>

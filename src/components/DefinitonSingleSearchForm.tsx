@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAtom } from 'jotai';
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
@@ -78,8 +78,10 @@ export function DefinitionSingleSearchForm() {
       });
   };
 
+  const id = useId()
   return (
-    <form id="search-form" onSubmit={form.handleSubmit(onSubmit)}>
+    <form id={id}
+      onSubmit={form.handleSubmit(onSubmit)}>
       <FieldGroup>
         <Controller
           name="search_type"
@@ -89,7 +91,7 @@ export function DefinitionSingleSearchForm() {
               <Input
                 type="hidden"
                 {...field}
-                id="form-rhf-demo-title"
+                id={id}
                 aria-invalid={fieldState.invalid}
                 autoComplete="off"
               />
@@ -105,7 +107,7 @@ export function DefinitionSingleSearchForm() {
               <FieldLabel htmlFor="form-rhf-demo-title">术语</FieldLabel>
               <Input
                 {...field}
-                id="form-rhf-demo-title"
+                id={id}
                 aria-invalid={fieldState.invalid}
                 placeholder="海洋灾害"
                 autoComplete="off"
@@ -116,7 +118,7 @@ export function DefinitionSingleSearchForm() {
         />
       </FieldGroup>
       <div className="mt-5">
-        <Button type="submit">
+        <Button type="submit" size="lg">
           {isLoading && <Spinner />}
           查询
         </Button>
