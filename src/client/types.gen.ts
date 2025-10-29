@@ -5,6 +5,44 @@ export type ClientOptions = {
 };
 
 /**
+ * Body_search_definition_batch_definition_batch_post
+ */
+export type BodySearchDefinitionBatchDefinitionBatchPost = {
+    /**
+     * Query
+     *
+     * 搜索关键词（用逗号分隔）
+     */
+    query: string;
+};
+
+/**
+ * Body_search_definition_definition_post
+ */
+export type BodySearchDefinitionDefinitionPost = {
+    /**
+     * Query
+     *
+     * 搜索关键词
+     */
+    query: string;
+};
+
+/**
+ * Body_search_search_batch_post
+ */
+export type BodySearchSearchBatchPost = {
+    /**
+     * File
+     */
+    file: Blob | File;
+    /**
+     * Search Type
+     */
+    search_type: string;
+};
+
+/**
  * Body_upload_file_files_post
  */
 export type BodyUploadFileFilesPost = {
@@ -12,6 +50,38 @@ export type BodyUploadFileFilesPost = {
      * File
      */
     file: Blob | File;
+};
+
+/**
+ * DefinitionResponse
+ */
+export type DefinitionResponse = {
+    /**
+     * Result
+     */
+    result: Array<DefinitionResult>;
+};
+
+/**
+ * DefinitionResult
+ */
+export type DefinitionResult = {
+    /**
+     * Term
+     */
+    term: string;
+    /**
+     * Definition
+     */
+    definition: string;
+    /**
+     * Documents
+     */
+    documents: string;
+    /**
+     * Page
+     */
+    page: number;
 };
 
 /**
@@ -129,6 +199,77 @@ export type ListFilesFilesListGetData = {
 };
 
 export type ListFilesFilesListGetResponses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};
+
+export type SearchDefinitionDefinitionPostData = {
+    body: BodySearchDefinitionDefinitionPost;
+    path?: never;
+    query?: never;
+    url: '/definition';
+};
+
+export type SearchDefinitionDefinitionPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type SearchDefinitionDefinitionPostError = SearchDefinitionDefinitionPostErrors[keyof SearchDefinitionDefinitionPostErrors];
+
+export type SearchDefinitionDefinitionPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: DefinitionResponse;
+};
+
+export type SearchDefinitionDefinitionPostResponse = SearchDefinitionDefinitionPostResponses[keyof SearchDefinitionDefinitionPostResponses];
+
+export type SearchDefinitionBatchDefinitionBatchPostData = {
+    body: BodySearchDefinitionBatchDefinitionBatchPost;
+    path?: never;
+    query?: never;
+    url: '/definition/batch';
+};
+
+export type SearchDefinitionBatchDefinitionBatchPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type SearchDefinitionBatchDefinitionBatchPostError = SearchDefinitionBatchDefinitionBatchPostErrors[keyof SearchDefinitionBatchDefinitionBatchPostErrors];
+
+export type SearchDefinitionBatchDefinitionBatchPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: unknown;
+};
+
+export type SearchSearchBatchPostData = {
+    body: BodySearchSearchBatchPost;
+    path?: never;
+    query?: never;
+    url: '/search/batch';
+};
+
+export type SearchSearchBatchPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type SearchSearchBatchPostError = SearchSearchBatchPostErrors[keyof SearchSearchBatchPostErrors];
+
+export type SearchSearchBatchPostResponses = {
     /**
      * Successful Response
      */

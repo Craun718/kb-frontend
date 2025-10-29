@@ -1,11 +1,20 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useAtom } from 'jotai';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import * as z from 'zod';
+import { searchDefinitionDefinitionPost } from '@/client';
+import { resultsListAtom } from '@/store/resultsList';
 import { Button } from './ui/button';
 import { Field, FieldError, FieldGroup, FieldLabel } from './ui/field';
 import { Input } from './ui/input';
+import { Spinner } from './ui/spinner';
 
 export function DefinitionSingleSearchForm() {
+  const [_, setResultsList] = useAtom(resultsListAtom);
+  const [isLoading, setIsLoading] = useState(false);
+
   const singleSearchForm = z.object({
     search_type: z
       .string()
@@ -21,12 +30,52 @@ export function DefinitionSingleSearchForm() {
     resolver: zodResolver(singleSearchForm),
     defaultValues: {
       search_type: 'definition',
-      query: '',
+      query: '海洋灾害应急',
     },
   });
 
   const onSubmit = (data: z.infer<typeof singleSearchForm>) => {
-    console.log('Form submitted with data:', data);
+    console.debug('Form submitted with data:', data);
+    setIsLoading(true);
+    searchDefinitionDefinitionPost({ body: { ...data } })
+      .then((res) => {
+        if (!res.response.ok) {
+          if (res.response.status === 401) {
+            toast.error('请检查API KEY是否正确');
+          } else if (res.response.status === 404) {
+            toast.error('未找到相关定义');
+          } else {
+            toast.error(`请求失败，状态码：${res.response.status}`);
+          }
+        }
+
+        const result = res.data?.result;
+        if (!result || !Array.isArray(result)) {
+          toast.error('未找到相关定义');
+          return;
+        }
+
+        const formattedResults = result.map((item) => ({
+          title: item.term || '',
+          description: item.definition || '',
+          document: item.documents || '',
+          page: item.page || 0,
+        }));
+
+        if (!formattedResults.length) {
+          toast.error('未找到相关定义');
+          return;
+        }
+
+        setResultsList(formattedResults);
+        toast.success('查询成功');
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -67,7 +116,10 @@ export function DefinitionSingleSearchForm() {
         />
       </FieldGroup>
       <div className="mt-5">
-        <Button type="submit">查询</Button>
+        <Button type="submit">
+          {isLoading && <Spinner />}
+          查询
+        </Button>
       </div>
     </form>
   );
