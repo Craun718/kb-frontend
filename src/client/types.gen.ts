@@ -29,6 +29,18 @@ export type BodySearchDefinitionDefinitionPost = {
 };
 
 /**
+ * Body_search_relationship_relation_post
+ */
+export type BodySearchRelationshipRelationPost = {
+    /**
+     * Query
+     *
+     * 搜索关键词
+     */
+    query: string;
+};
+
+/**
  * Body_search_search_batch_post
  */
 export type BodySearchSearchBatchPost = {
@@ -92,6 +104,46 @@ export type HttpValidationError = {
      * Detail
      */
     detail?: Array<ValidationError>;
+};
+
+/**
+ * RelationResponse
+ */
+export type RelationResponse = {
+    /**
+     * Result
+     */
+    result: Array<RelationResult>;
+};
+
+/**
+ * RelationResult
+ */
+export type RelationResult = {
+    /**
+     * Term1
+     */
+    term1: string;
+    /**
+     * Term2
+     */
+    term2: string;
+    /**
+     * Relation
+     */
+    relation: number;
+    /**
+     * Reason
+     */
+    reason: string;
+    /**
+     * Documents
+     */
+    documents: string;
+    /**
+     * Page
+     */
+    page: number;
 };
 
 /**
@@ -252,6 +304,31 @@ export type SearchDefinitionBatchDefinitionBatchPostResponses = {
      */
     200: unknown;
 };
+
+export type SearchRelationshipRelationPostData = {
+    body: BodySearchRelationshipRelationPost;
+    path?: never;
+    query?: never;
+    url: '/relation';
+};
+
+export type SearchRelationshipRelationPostErrors = {
+    /**
+     * Validation Error
+     */
+    422: HttpValidationError;
+};
+
+export type SearchRelationshipRelationPostError = SearchRelationshipRelationPostErrors[keyof SearchRelationshipRelationPostErrors];
+
+export type SearchRelationshipRelationPostResponses = {
+    /**
+     * Successful Response
+     */
+    200: RelationResponse;
+};
+
+export type SearchRelationshipRelationPostResponse = SearchRelationshipRelationPostResponses[keyof SearchRelationshipRelationPostResponses];
 
 export type SearchSearchBatchPostData = {
     body: BodySearchSearchBatchPost;

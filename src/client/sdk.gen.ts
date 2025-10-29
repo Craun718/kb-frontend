@@ -2,7 +2,7 @@
 
 import { type Client, formDataBodySerializer, type Options as Options2, type TDataShape, urlSearchParamsBodySerializer } from './client';
 import { client } from './client.gen';
-import type { DeleteFileFilesFilenameDeleteData, DeleteFileFilesFilenameDeleteErrors, DeleteFileFilesFilenameDeleteResponses, DownloadFileFilesFilenameGetData, DownloadFileFilesFilenameGetErrors, DownloadFileFilesFilenameGetResponses, ListFilesFilesListGetData, ListFilesFilesListGetResponses, SearchDefinitionBatchDefinitionBatchPostData, SearchDefinitionBatchDefinitionBatchPostErrors, SearchDefinitionBatchDefinitionBatchPostResponses, SearchDefinitionDefinitionPostData, SearchDefinitionDefinitionPostErrors, SearchDefinitionDefinitionPostResponses, SearchSearchBatchPostData, SearchSearchBatchPostErrors, SearchSearchBatchPostResponses, UploadFileFilesPostData, UploadFileFilesPostErrors, UploadFileFilesPostResponses } from './types.gen';
+import type { DeleteFileFilesFilenameDeleteData, DeleteFileFilesFilenameDeleteErrors, DeleteFileFilesFilenameDeleteResponses, DownloadFileFilesFilenameGetData, DownloadFileFilesFilenameGetErrors, DownloadFileFilesFilenameGetResponses, ListFilesFilesListGetData, ListFilesFilesListGetResponses, SearchDefinitionBatchDefinitionBatchPostData, SearchDefinitionBatchDefinitionBatchPostErrors, SearchDefinitionBatchDefinitionBatchPostResponses, SearchDefinitionDefinitionPostData, SearchDefinitionDefinitionPostErrors, SearchDefinitionDefinitionPostResponses, SearchRelationshipRelationPostData, SearchRelationshipRelationPostErrors, SearchRelationshipRelationPostResponses, SearchSearchBatchPostData, SearchSearchBatchPostErrors, SearchSearchBatchPostResponses, UploadFileFilesPostData, UploadFileFilesPostErrors, UploadFileFilesPostResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -85,6 +85,21 @@ export const searchDefinitionBatchDefinitionBatchPost = <ThrowOnError extends bo
     return (options.client ?? client).post<SearchDefinitionBatchDefinitionBatchPostResponses, SearchDefinitionBatchDefinitionBatchPostErrors, ThrowOnError>({
         ...urlSearchParamsBodySerializer,
         url: '/definition/batch',
+        ...options,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            ...options.headers
+        }
+    });
+};
+
+/**
+ * Search Relationship
+ */
+export const searchRelationshipRelationPost = <ThrowOnError extends boolean = false>(options: Options<SearchRelationshipRelationPostData, ThrowOnError>) => {
+    return (options.client ?? client).post<SearchRelationshipRelationPostResponses, SearchRelationshipRelationPostErrors, ThrowOnError>({
+        ...urlSearchParamsBodySerializer,
+        url: '/relation',
         ...options,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
