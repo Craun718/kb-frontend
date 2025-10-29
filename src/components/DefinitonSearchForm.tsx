@@ -5,16 +5,16 @@ import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
 import {
-  searchDefinitionBatchDefinitionBatchPost,
   searchDefinitionDefinitionPost,
-  searchSearchBatchPost,
 } from '@/client';
+import type { DefinitionResult } from '@/client/types.gen';
 import { exportDefinitionsAsJson } from '@/lib/export';
 import { resultsListAtom } from '@/store/resultsList';
 import { Button } from './ui/button';
 import { Field, FieldError, FieldGroup, FieldLabel } from './ui/field';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
+import { Progress } from './ui/progress';
 import { Separator } from './ui/separator';
 import { Spinner } from './ui/spinner';
 
@@ -22,6 +22,9 @@ export function DefinitionSingleSearchForm() {
   const [_, setResultsList] = useAtom(resultsListAtom);
   const [isLoading, setIsLoading] = useState(false);
   const [file, setFile] = useState<File | null>(null);
+  const [progress, setProgress] = useState(0);
+  const [totalRequests, setTotalRequests] = useState(0);
+  const [completedRequests, setCompletedRequests] = useState(0);
 
   const singleSearchForm = z.object({
     search_type: z
@@ -124,7 +127,7 @@ export function DefinitionSingleSearchForm() {
     }
   };
 
-  const searchDefinitionWithFile = (terms: string[]) => {
+  const searchDefinitionWithFile = async (terms: string[]) => {
     const query = terms.map((term) => term.trim()).filter(Boolean);
     if (query.length === 0) {
       toast.error('JSON文件中没有有效的术语');
@@ -132,47 +135,72 @@ export function DefinitionSingleSearchForm() {
     }
 
     setIsLoading(true);
-    searchDefinitionBatchDefinitionBatchPost({
-      body: { query: query.join(',') },
-    })
-      .then((res) => {
+    setCompletedRequests(0);
+    setTotalRequests(query.length);
+    setProgress(0);
+
+    // 顺序请求每个术语的定义
+    const allResults: DefinitionResult[] = [];
+
+    try {
+      for (let i = 0; i < query.length; i++) {
+        const term = query[i];
+
+        const res = await searchDefinitionDefinitionPost({
+          body: {
+            query: term,
+          },
+        });
+
+        // 更新进度
+        setCompletedRequests(i + 1);
+        setProgress(((i + 1) / query.length) * 100);
+
         if (!res.response.ok) {
           if (res.response.status === 401) {
             toast.error('请检查API KEY是否正确');
           } else if (res.response.status === 404) {
-            toast.error('未找到相关定义');
+            console.warn('部分请求未找到相关定义');
           } else {
             toast.error(`请求失败，状态码：${res.response.status}`);
           }
+          continue;
         }
+
         const result = res.data?.result;
-        if (!result || !Array.isArray(result)) {
-          toast.error('未找到相关定义');
-          return;
+        if (result && Array.isArray(result)) {
+          allResults.push(...result);
         }
+      }
 
-        const formattedResults = result.map((item) => ({
-          title: item.term || '',
-          description: item.definition || '',
-          document: item.documents || '',
-          page: item.page || 0,
-        }));
+      if (allResults.length === 0) {
+        toast.error('未找到相关定义');
+        return;
+      }
 
-        if (!formattedResults.length) {
-          toast.error('未找到相关定义');
-          return;
-        }
+      const formattedResults = allResults.map((item) => ({
+        title: item.term || '',
+        description: item.definition || '',
+        document: item.documents || '',
+        page: item.page || 0,
+      }));
 
-        setResultsList(formattedResults);
-        toast.success('查询成功');
-        exportDefinitionsAsJson({ result });
-      })
-      .catch((error) => {
-        toast.error(error.message);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      if (!formattedResults.length) {
+        toast.error('未找到相关定义');
+        return;
+      }
+
+      setResultsList(formattedResults);
+      toast.success(`查询成功，找到 ${formattedResults.length} 个定义`);
+      exportDefinitionsAsJson({ result: allResults });
+    } catch (error: unknown) {
+      toast.error(error instanceof Error ? error.message : '请求失败');
+    } finally {
+      setIsLoading(false);
+      setProgress(0);
+      setCompletedRequests(0);
+      setTotalRequests(0);
+    }
   };
 
   const id = useId();
@@ -233,6 +261,15 @@ export function DefinitionSingleSearchForm() {
       <div className="flex flex-col gap-3 mt-3">
         <Label>批量查询定义</Label>
         <Input type="file" accept=".json" onChange={selectFile} />
+        {isLoading && (
+          <div className="flex flex-col gap-2">
+            <div className="flex justify-between text-sm text-gray-600">
+              <span>查询进度</span>
+              <span>{completedRequests}/{totalRequests}</span>
+            </div>
+            <Progress value={progress} />
+          </div>
+        )}
         <div className="mb-10 flex justify-end mt-2 mr-2">
           <Button
             type="button"
