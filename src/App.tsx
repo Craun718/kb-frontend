@@ -6,10 +6,10 @@ import { HomePage } from './pages';
 const App = () => {
   return (
     <>
-      <div className="content px-10">
+      <div className="content">
         <HomePage />
       </div>
-      <Toaster />
+      <Toaster position="top-center" />
     </>
   );
 };
