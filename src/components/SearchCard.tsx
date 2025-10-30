@@ -2,7 +2,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@radix-ui/react-tabs';
 import { useState } from 'react';
 import { DefinitionSingleSearchForm } from './DefinitonSearchForm';
 import { RelationSingleSearchForm } from './RelationSearchForm';
-import { Card, CardContent, CardHeader } from './ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from './ui/card';
 import { Switch } from './ui/switch';
 
 export function SearchCard() {
@@ -11,8 +17,8 @@ export function SearchCard() {
   return (
     <Card>
       <CardHeader>
-        {/* <CardTitle>搜索</CardTitle> */}
-        {/* <CardDescription>请输入您想要的查询内容</CardDescription> */}
+        <CardTitle>搜索</CardTitle>
+        <CardDescription>请输入您想要的查询内容</CardDescription>
       </CardHeader>
       <CardContent>
         <Tabs

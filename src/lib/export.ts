@@ -45,7 +45,6 @@ export const exportDefinitionsAsJson = (definitions: DefinitionResponse) => {
   URL.revokeObjectURL(url);
 };
 
-
 // [
 // "R01": {
 // "术语关联": ["术语 A", "术语 B"],
