@@ -7,6 +7,10 @@ if (import.meta.env.DEV) {
   client.setConfig({
     baseUrl: 'http://localhost:3000/api',
   });
+} else {
+  client.setConfig({
+    baseUrl: 'http://localhost:8010/api',
+  });
 }
 
 const rootEl = document.getElementById('root');
