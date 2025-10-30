@@ -14,7 +14,7 @@ export function ResultList() {
 
   return (
     <div>
-      <ItemGroup>
+      <ItemGroup className='flex flex-col gap-10'>
         {resultList.map(
           (
             element, // 使用 map 方法，同时添加 key
