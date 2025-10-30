@@ -1,12 +1,10 @@
-import { useAtom } from 'jotai';
 import { ResultList } from '@/components/resultList';
 import { SearchCard } from '@/components/SearchCard';
-import { resultsListAtom } from '@/store/resultsList';
 
 export function HomePage() {
   return (
     <div className="flex-1">
-      <div >
+      <div>
         <h1 className="font-extrabold text-4xl text-center text-sky-900 mb-6">
           海洋防灾减灾知识库
         </h1>

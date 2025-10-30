@@ -13,7 +13,7 @@ export function ResultList() {
   const [resultList, _] = useAtom(resultsListAtom);
 
   return (
-    <div >
+    <div>
       <ItemGroup>
         {resultList.map(
           (
@@ -25,7 +25,7 @@ export function ResultList() {
               className="flex flex-col max-h-none h-auto items-start bg-blue-100"
             >
               <ItemContent>
-                <ItemTitle className='text-blue-900'>{element.title}</ItemTitle>{' '}
+                <ItemTitle className="text-blue-900">{element.title}</ItemTitle>{' '}
                 <ItemDescription className="line-clamp-none! break-all text-left text-blue-800   dark:text-gray-400">
                   {element.description}{' '}
                 </ItemDescription>
