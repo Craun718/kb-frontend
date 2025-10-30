@@ -6,9 +6,7 @@ import { HomePage } from './pages';
 const App = () => {
   return (
     <div className="content min-h-screen bg-linear-to-b from-sky-300 to-white flex py-6">
-      <div className="w-full max-w-5xl px-4">
-        <HomePage />
-      </div>
+      <HomePage />
       <Toaster position="top-center" />
     </div>
   );
