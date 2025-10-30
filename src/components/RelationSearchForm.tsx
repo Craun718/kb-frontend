@@ -39,7 +39,7 @@ export function RelationSingleSearchForm() {
     resolver: zodResolver(singleSearchForm),
     defaultValues: {
       search_type: 'relation',
-      query: '海洋灾害,应急响应,台风,预警',
+      query: '海洋灾害,应急响应',
     },
   });
 
