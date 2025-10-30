@@ -2,5 +2,7 @@ import type { CreateClientConfig } from './client/client.gen';
 
 export const createClientConfig: CreateClientConfig = (config) => ({
   ...config,
-  baseUrl: import.meta.env.DEV ? 'http://localhost:8000' : 'http://localhost:8010/api',
+  baseUrl: import.meta.env.DEV
+    ? 'http://localhost:8000'
+    : 'http://localhost:8010/api',
 });
