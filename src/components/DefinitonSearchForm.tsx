@@ -30,7 +30,7 @@ export function DefinitionSingleSearchForm() {
     resolver: zodResolver(singleSearchForm),
     defaultValues: {
       search_type: 'definition',
-      query: '海洋灾害应急',
+      query: '海啸能级',
     },
   });
 
