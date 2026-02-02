@@ -5,7 +5,7 @@ export function HomePage() {
   return (
     <div className="flex-1">
       <div className='pt-10'>
-        <h1 className="font-extrabold text-4xl text-center text-sky-900 mb-6">
+        <h1 className="font-extrabold text-4xl text-center text-sky-900 mb-20">
           自然资源行业标准知识库
         </h1>
         <div className="flex justify-center px-4">
