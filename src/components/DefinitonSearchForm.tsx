@@ -30,7 +30,7 @@ export function DefinitionSingleSearchForm() {
     resolver: zodResolver(singleSearchForm),
     defaultValues: {
       search_type: 'definition',
-      query: '海啸能级',
+      query: '',
     },
   });
 
@@ -43,7 +43,7 @@ export function DefinitionSingleSearchForm() {
           if (res.response.status === 401) {
             toast.error('请检查API KEY是否正确');
           } else if (res.response.status === 404) {
-            toast.error('未找到相关定义');
+            toast.error('未找到相关内容');
           } else {
             toast.error(`请求失败，状态码：${res.response.status}`);
           }
@@ -51,7 +51,7 @@ export function DefinitionSingleSearchForm() {
 
         const result = res.data?.result;
         if (!result || !Array.isArray(result)) {
-          toast.error('未找到相关定义');
+          toast.error('未找到相关内容');
           return;
         }
 
