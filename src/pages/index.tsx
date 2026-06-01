@@ -4,9 +4,9 @@ import { SearchCard } from '@/components/SearchCard';
 export function HomePage() {
   return (
     <div className="flex-1">
-      <div className='pt-10'>
+      <div className="pt-10">
         <h1 className="font-extrabold text-4xl text-center text-sky-900 mb-20">
-          自然资源行业标准知识库
+          行业标准知识库
         </h1>
         <div className="flex justify-center px-4">
           <div className="w-full max-w-4xl bg-white/70 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg">

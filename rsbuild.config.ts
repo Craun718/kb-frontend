@@ -13,10 +13,11 @@ export default defineConfig({
     },
   },
   html: {
-    title: "自然资源标准知识库",
+    title: "行业标准知识库",
     favicon: './src/assets/icon.png',
     meta: {
       description: 'A LLM based knowledge base by GXRS',
     },
   }
 });
+
